@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author Yawkat
  */
-public class SectionPingList extends PingListLayout {
+public class SectionPingList implements PingListLayout {
     public static final String TOP_LEFT = "topleft";
     public static final String TOP_CENTER = "topcenter";
     public static final String TOP_RIGHT = "topright";
