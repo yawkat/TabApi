@@ -10,9 +10,11 @@ public interface PingListLayout {
      */
     PingListEntry[] getContent();
 
-    void add(PingListEntry entry, Object argument);
+    void add(PingListEntry entry, Object section);
 
-    void set(int index, PingListEntry entry, Object argument);
+    void set(int index, PingListEntry entry, Object section);
 
     void remove(PingListEntry entry);
+
+    void clear(Object section);
 }

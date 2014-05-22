@@ -54,13 +54,13 @@ public class SectionPingList implements PingListLayout {
 
     @Override
     public void add(PingListEntry entry, Object argument) {
-        String position = ((String) argument).toLowerCase();
+        String position = sanitize(argument);
         addToList(getSection(position), entry, getLimit(position));
     }
 
     @Override
     public void set(int index, PingListEntry entry, Object argument) {
-        String position = ((String) argument).toLowerCase();
+        String position = sanitize(argument);
         if (index >= getLimit(position)) { return; }
         List<PingListEntry> sec = getSection(position);
         while (sec.size() <= index) { sec.add(null); }
@@ -103,6 +103,11 @@ public class SectionPingList implements PingListLayout {
         bottomRight.remove(entry);
     }
 
+    @Override
+    public void clear(Object section) {
+        getSection(sanitize(section)).clear();
+    }
+
     private static int max(int... items) {
         int max = Integer.MIN_VALUE;
         for (int i : items) {
@@ -115,5 +120,9 @@ public class SectionPingList implements PingListLayout {
         if (list.size() < maximumListLength) {
             list.add(element);
         }
+    }
+
+    private static String sanitize(Object sectionSpec) {
+        return ((String) sectionSpec).toLowerCase();
     }
 }
