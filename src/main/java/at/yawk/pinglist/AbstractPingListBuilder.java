@@ -3,7 +3,6 @@ package at.yawk.pinglist;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import javax.annotation.Nullable;
 
 /**
  * @author Yawkat
@@ -25,7 +24,7 @@ public abstract class AbstractPingListBuilder<P> implements PingConstants {
         }
     }
 
-    public void set(P player, PingListLayout layout) {
+    public BakedPingList bakeLayout(PingListLayout layout) {
         PingListEntry.SplitPingListEntry[] entries = new PingListEntry.SplitPingListEntry[PING_LIST_SIZE];
         PingListEntry[] content = layout.getContent();
         if (content != null) {
@@ -33,10 +32,15 @@ public abstract class AbstractPingListBuilder<P> implements PingConstants {
                 if (content[i] != null) { entries[i] = content[i].split(); }
             }
         }
-        set(player, entries);
+        return new BakedPingList(entries);
     }
 
-    private void set(P player, PingListEntry.SplitPingListEntry[] newEntries) {
+    public void set(P player, PingListLayout layout) {
+        set(player, bakeLayout(layout));
+    }
+
+    public void set(P player, BakedPingList baked) {
+        PingListEntry.SplitPingListEntry[] newEntries = baked.getEntries();
         assert newEntries.length == PING_LIST_SIZE;
         PingListEntry.SplitPingListEntry[] oldEntries = toPingListOwner(player).getPingListContent();
         assert oldEntries != null;
@@ -96,8 +100,8 @@ public abstract class AbstractPingListBuilder<P> implements PingConstants {
     protected abstract void sendTeamInfo(P target,
                                          int action,
                                          String teamId,
-                                         @Nullable String newPrefix,
-                                         @Nullable Collection<String> newMembers);
+                                         String newPrefix,
+                                         Collection<String> newMembers);
 
     public void init(P player) {
         PingListEntry.SplitPingListEntry[] c = new PingListEntry.SplitPingListEntry[PING_LIST_SIZE];
