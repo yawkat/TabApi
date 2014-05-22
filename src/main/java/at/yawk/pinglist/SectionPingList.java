@@ -28,47 +28,26 @@ public class SectionPingList implements PingListLayout {
     public PingListEntry[] getContent() {
         PingListEntry[] content = new PingListEntry[60];
         int topOffset = max(10, topLeft.size(), topCenter.size(), topRight.size());
-        {
-            int i = 0;
-            for (PingListEntry p : topLeft) {
-                content[(i++ * 3)] = p;
-            }
+        for (int i = 0; i < topLeft.size(); i++) {
+            content[(i++ * 3)] = topLeft.get(i);
         }
-        {
-            int i = 0;
-            for (PingListEntry p : topCenter) {
-                content[i++ * 3 + 1] = p;
-            }
+        for (int i = 0; i < topCenter.size(); i++) {
+            content[i++ * 3 + 1] = topCenter.get(i);
         }
-        {
-            int i = 0;
-            for (PingListEntry p : topRight) {
-                content[i++ * 3 + 2] = p;
-            }
+        for (int i = 0; i < topRight.size(); i++) {
+            content[i++ * 3 + 2] = topRight.get(i);
         }
-        {
-            int i = 0;
-            for (PingListEntry p : bottomLeft) {
-                content[57 + i-- * 3] = p;
-            }
+        for (int i = 0; i < bottomLeft.size(); i++) {
+            content[57 + i-- * 3] = bottomLeft.get(i);
         }
-        {
-            int i = 0;
-            for (PingListEntry p : bottomCenter) {
-                content[58 + i-- * 3] = p;
-            }
+        for (int i = 0; i < bottomCenter.size(); i++) {
+            content[58 + i-- * 3] = bottomCenter.get(i);
         }
-        {
-            int i = 0;
-            for (PingListEntry p : bottomRight) {
-                content[59 + i-- * 3] = p;
-            }
+        for (int i = 0; i < bottomRight.size(); i++) {
+            content[59 + i-- * 3] = bottomRight.get(i);
         }
-        {
-            int i = 0;
-            for (PingListEntry p : center) {
-                content[i++ + topOffset * 3] = p;
-            }
+        for (int i = 0; i < center.size(); i++) {
+            content[i++ + topOffset * 3] = center.get(i);
         }
         return content;
     }
