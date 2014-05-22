@@ -29,25 +29,25 @@ public class SectionPingList implements PingListLayout {
         PingListEntry[] content = new PingListEntry[60];
         int topOffset = max(10, topLeft.size(), topCenter.size(), topRight.size());
         for (int i = 0; i < topLeft.size(); i++) {
-            content[(i++ * 3)] = topLeft.get(i);
+            content[(i * 3)] = topLeft.get(i);
         }
         for (int i = 0; i < topCenter.size(); i++) {
-            content[i++ * 3 + 1] = topCenter.get(i);
+            content[i * 3 + 1] = topCenter.get(i);
         }
         for (int i = 0; i < topRight.size(); i++) {
-            content[i++ * 3 + 2] = topRight.get(i);
+            content[i * 3 + 2] = topRight.get(i);
         }
         for (int i = 0; i < bottomLeft.size(); i++) {
-            content[57 + i-- * 3] = bottomLeft.get(i);
+            content[60 - (bottomLeft.size() - i) * 3] = bottomLeft.get(i);
         }
         for (int i = 0; i < bottomCenter.size(); i++) {
-            content[58 + i-- * 3] = bottomCenter.get(i);
+            content[61 - (bottomCenter.size() - i) * 3] = bottomCenter.get(i);
         }
         for (int i = 0; i < bottomRight.size(); i++) {
-            content[59 + i-- * 3] = bottomRight.get(i);
+            content[62 - (bottomRight.size() - i) * 3] = bottomRight.get(i);
         }
         for (int i = 0; i < center.size(); i++) {
-            content[i++ + topOffset * 3] = center.get(i);
+            content[i + topOffset * 3] = center.get(i);
         }
         return content;
     }
