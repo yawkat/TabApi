@@ -1,0 +1,5 @@
+main: at.yawk.pinglist.TestPlugin
+name: Ping List Test
+author: Yawkat
+version: 1.0
+depends: ["ProtocolLib"]
