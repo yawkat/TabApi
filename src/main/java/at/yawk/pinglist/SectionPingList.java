@@ -76,61 +76,41 @@ public class SectionPingList extends PingListLayout {
     @Override
     public void add(PingListEntry entry, Object argument) {
         String position = ((String) argument).toLowerCase();
-        switch (position) {
-        case TOP_LEFT:
-            addToList(topLeft, entry, 20);
-            break;
-        case TOP_CENTER:
-            addToList(topCenter, entry, 20);
-            break;
-        case TOP_RIGHT:
-            addToList(topRight, entry, 20);
-            break;
-        case CENTER:
-            addToList(center, entry, 30);
-            break;
-        case BOTTOM_LEFT:
-            addToList(bottomLeft, entry, 20);
-            break;
-        case BOTTOM_CENTER:
-            addToList(bottomCenter, entry, 20);
-            break;
-        case BOTTOM_RIGHT:
-            addToList(bottomRight, entry, 20);
-            break;
-        default:
-            throw new IllegalArgumentException("Invalid position: " + position);
-        }
+        addToList(getSection(position), entry, getLimit(position));
     }
 
     @Override
     public void set(int index, PingListEntry entry, Object argument) {
         String position = ((String) argument).toLowerCase();
-        switch (position) {
+        if (index >= getLimit(position)) { return; }
+        List<PingListEntry> sec = getSection(position);
+        while (sec.size() <= index) { sec.add(null); }
+        sec.set(index, entry);
+    }
+
+    private List<PingListEntry> getSection(String id) {
+        switch (id) {
         case TOP_LEFT:
-            topLeft.set(index, entry);
-            break;
+            return topLeft;
         case TOP_CENTER:
-            topCenter.set(index, entry);
-            break;
+            return topCenter;
         case TOP_RIGHT:
-            topRight.set(index, entry);
-            break;
+            return topRight;
         case CENTER:
-            center.set(index, entry);
-            break;
+            return center;
         case BOTTOM_LEFT:
-            bottomLeft.set(index, entry);
-            break;
+            return bottomLeft;
         case BOTTOM_CENTER:
-            bottomCenter.set(index, entry);
-            break;
+            return bottomCenter;
         case BOTTOM_RIGHT:
-            bottomRight.set(index, entry);
-            break;
+            return bottomRight;
         default:
-            throw new IllegalArgumentException("Invalid position: " + position);
+            throw new IllegalArgumentException("Invalid position: " + id);
         }
+    }
+
+    private int getLimit(String id) {
+        return id.equals(CENTER) ? PingConstants.PING_LIST_SIZE : 20;
     }
 
     @Override
